@@ -1,0 +1,16 @@
+df.t<-data.frame(Studysample.id=c(21:29),
+                 SampleID=c("A1","A2","A3","A4","A5","A6","A7","A8","A9"),
+                 Pedigree=rep(c("AA","BB","CC"),c(3,3,3)))
+df.s<-data.frame(Studysample.id=c(21:29),
+               SampleID=c("A1","A2","A3","A4","A5","A6","A7","A8","A9"),
+               Pedigree=rep(c("AA","BB","CC"),c(3,3,3)),
+               Location=rep("Navojoa",9),
+               GID=rep(c(11,12,13),c(3,3,3)),
+               Row=c("A","B","C","D","E","F","G","H","I"),
+               Col=c(1:9),
+               Treatment=rep("NA",9))
+df.c<-data.frame(Pedigree=c("AAA","BBB","CCC"),
+                 Location=rep("Navojoa",3),
+                 GID=c(11,12,13),
+                 Selection.History=c("XX","YY","ZZ"),
+                 Cross=rep("NA",3))
