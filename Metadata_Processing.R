@@ -10,10 +10,11 @@ library(xlsx)
 
 #######Processing datasets from DNAST and Cross info#######
 
-#Call DNAST and crossinfo datasets(now known as df.s and df.c respectively), this example only works in my computer, set directory accordingly.
+#Call DNAST and crossinfo datasets(now known as df.s and df.c respectively)
 df.s <- read_excel("file.dnast.xls",skip=6)
 df.c<- read_excel("file.crossinfo.xlsx")
-#Set dataframe from DNAST and crossinfo (df.s and df.c) as data.table (to avoid troubles with large data)
+#Set dataframe from DNAST and crossinfo (df.s and df.c) 
+#as data.table (to avoid troubles with large data)
 df.s<-as.data.table(df.s)
 df.c<-as.data.table(df.c)
 #Get Single Column frequency function on df.s/c
@@ -61,11 +62,14 @@ colnames(df.c.rc) <- paste(colnames(df.c.rc), "crossinfo", sep = ".")
 
 
 ####Generate Final Germplasm-Sample Template####
-#Merge gs_template_input and dnast dataframe (x,y,by.x=common column in x,by.y=common column in y)
+#Merge gs_template_input and dnast dataframe 
+#(x,y,by.x=common column in x,by.y=common column in y)
 df.t.s<-merge(df.t,df.s.rc,by.x="dnasample_num.gsti",by.y="Studysampleid.dnast")
 
 #In case no unique ids are present in either dataframe.
-##Generate concatenated proxy_id (first check a repeatable identifier and an unrepeatable identifier shared by both datasets)
+##Generate concatenated proxy_id 
+##first check a repeatable identifier and an unrepeatable identifier shared
+##by both datasets
 df.t$proxy_id<-paste(df.t$GID.gsti,df.t$Plant.Number.gsti,sep="-")
 df.s.rc$proxy_id<-paste(df.s.rc$GID.dnast,df.s.rc$Plant.Number.dnast,sep="-")
 df.t.s<-merge(df.t,df.s.rc,by="proxy_id")
@@ -90,7 +94,8 @@ sorted.colnames.list<-colnames(df.t.s.c)
 write.table(sorted.colnames.list, "scl.txt",row.names = FALSE,quote=FALSE,sep="\t")
 
 #From scl.txt, choose which colums to keep and the ones to keep out
-##Generate your list of patterns (colnames/common string) to be removed: divided by pipe, all betwen quotes ex:"pattern1|pattern2".
+##Generate your list of patterns (colnames/common string) to be removed: 
+##divided by pipe, all betwen quotes ex:"pattern1|pattern2".
 pattern<-c("pattern1|pattern2")
 #Apply filter.rep.col function, specifing the pattern to be removed and dataframe
 df.f<-filter.rep.col(rem=pattern,df=df.t.s.c)
